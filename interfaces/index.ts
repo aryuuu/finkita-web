@@ -8,3 +8,12 @@ export type User = {
   id: number
   name: string
 }
+
+export type Account = {
+  id: number
+    email: string
+    bank: string
+    user_id: string
+    account_number: string
+  name: string
+}
