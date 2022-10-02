@@ -1,13 +1,14 @@
 import React, { ReactNode, useState } from 'react'
-import Link from 'next/link'
+import { useRouter } from 'next/router';
 import Head from 'next/head'
 import Box from '@mui/material/Box';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import RestoreIcon from '@mui/icons-material/Restore';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ArchiveIcon from '@mui/icons-material/Archive';
+import HomeIcon from '@mui/icons-material/Home';
+import PersonIcon from '@mui/icons-material/Person';
+import NotesIcon from '@mui/icons-material/Notes';
 import Paper from '@mui/material/Paper';
+import Login from './login';
 
 type Props = {
   children?: ReactNode
@@ -15,7 +16,14 @@ type Props = {
 }
 
 const Layout = ({ children, title = 'Finkita' }: Props) => { 
-  const [value, setValue] = useState(0);
+    const router = useRouter();
+    const path = router.route;
+    const [value, setValue] = useState(path);
+
+    const handleNav = (_event: React.SyntheticEvent, newValue: any) => {
+        setValue(newValue);
+        router.push(newValue)
+    }
 
     return (
           <div>
@@ -33,19 +41,11 @@ const Layout = ({ children, title = 'Finkita' }: Props) => {
                     <BottomNavigation
                       showLabels
                       value={value}
-                      onChange={(event, newValue) => {
-                        setValue(newValue);
-                      }}
+                      onChange={handleNav}
                     >
-                        <Link href="/">
-                          <BottomNavigationAction label="Recent" icon={<RestoreIcon />} />
-                        </Link>
-                        <Link href="/accounts">
-                          <BottomNavigationAction label="Accounts" icon={<FavoriteIcon />} />
-                        </Link>
-                        <Link href="/users">
-                          <BottomNavigationAction label="Users" icon={<ArchiveIcon />} />
-                        </Link>
+                        <BottomNavigationAction value="/" label="Home" icon={<HomeIcon />} />
+                        <BottomNavigationAction value="/accounts" label="Accounts" icon={<PersonIcon />} />
+                        <BottomNavigationAction value="/mutations" label="Mutations" icon={<NotesIcon />} />
                     </BottomNavigation>
               </Paper>
             </Box>

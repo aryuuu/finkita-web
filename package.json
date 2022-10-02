@@ -11,6 +11,7 @@
     "@emotion/styled": "^11.10.4",
     "@mui/icons-material": "^5.10.6",
     "@mui/material": "^5.10.7",
+    "axios": "^0.27.2",
     "next": "latest",
     "next-auth": "^4.12.2",
     "react": "^17.0.2",

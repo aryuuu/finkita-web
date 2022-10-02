@@ -1,26 +1,34 @@
-import {useState} from 'react';
-import Link from 'next/link'
+import { useSession } from "next-auth/react"
+import { useEffect, useMemo, useState } from "react";
 import Layout from '../components/Layout'
-import Box from '@mui/material/Box';
-import BottomNavigation from '@mui/material/BottomNavigation';
-import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import RestoreIcon from '@mui/icons-material/Restore';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import ArchiveIcon from '@mui/icons-material/Archive';
-import Paper from '@mui/material/Paper';
+import Login from "../components/login";
 
 const IndexPage = () => {
-  const [value, setValue] = useState(0);
+    const { status } = useSession();
+    const [isAuthenticated, setIsAuthenticated] = useState(status === 'authenticated');
+    useEffect(() => {
+        setIsAuthenticated(status === 'authenticated');
+        console.log({isAuthenticated})
+    }, [status])
+    // console.log({isAuthenticated})
+    // console.log(typeof status)
+    // console.log({status})
+    // console.log(`${status} === 'authenticated' : ${status.toString() === 'authenticated'}`)
 
+    const authenticatedView = () => {
+        return (
+            <>
+                <h1>Finkita home</h1>
+            </>
+        )
+    }
     return (
       <Layout title="Home | Finkita">
-        <h1>Finkita home</h1>
-        <p>
-          <Link href="/about">
-            <a>About</a>
-          </Link>
-        </p>
+        {
+            isAuthenticated
+            ? authenticatedView
+            : <Login/>
+        }
       </Layout>
     )
 }

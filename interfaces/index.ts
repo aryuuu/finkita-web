@@ -17,3 +17,17 @@ export type Account = {
     account_number: string
   name: string
 }
+
+export type Mutation = {
+  id: number
+    account_id: string
+    type: string
+    amount: number
+    email: string
+    date: string
+    bank: string
+    account_number: string
+    balance: number
+    currency: string
+    description: string
+}
