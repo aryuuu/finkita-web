@@ -1,0 +1,10 @@
+/node_modules/**
+/build/**
+/coverage/**
+/docs/**
+/jsdoc/**
+/tmp/**
+/dist/**
+/venv/**
+.eslintrc.js
+
